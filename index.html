@@ -1,21 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Wazzup</title>
+    <link rel="shortcut icon" type="image/png" href="assets/icon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
+    </script>
     <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
     <script src="script.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
 </head>
 <body>
-    <div id="menu">
-        <p>Your ID:</p>
-        <p id="uuid"></p>
-        <p>Peer ID:</p>
-        <input type="text" placeholder="Place here..." />
-        <button type="button" class="btn btn-success" onclick="callUser()">Connect</button>
-    </div>
+    <div id="menu" class="container">
+        <div class="row">
+          <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card border-0 shadow rounded-3 my-5">
+              <div class="card-body p-4 p-sm-5">
+                <div class="text-center">
+                    <img src="assets/login.png" alt="Wazzup" style="width:80%;">
+                </div>
+                <h3 class="small card-title text-center mb-4 fw-light fs-5">Connect to your friends</h5>
+                    <div class="form-group mb-3">
+                        <p>Your ID:</p>
+                        <input type="text" class="form-control" id="uuid" readonly>
+                    </div>
+                    <hr class="my-4">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="peerInput" placeholder="Peer ID" required>
+                        <label for="floatingInput">Peer ID</label>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit" onclick="callUser()">Connect</button>
+                    </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     
     <div id="chat" style="display: none">
         <div class="content">
@@ -23,7 +46,7 @@
 
             </div>
             <form class="footer" onsubmit="return false;">
-                <input id="messageText" type="text" placeholder="Your message">
+                <input id="messageText" type="text" placeholder="Your message" required>
                 <button type="submit">Send</button>
             </form>
         </div>
@@ -35,7 +58,7 @@
             </div>
         </template>
 
-        <button type="button" class="btn btn-danger" onclick="endCall()">End Conversation</button>
+        <button type="button" class="btn mt-3 btn-danger" onclick="endCall()">End Conversation</button>
     </div>
 
 </body>
