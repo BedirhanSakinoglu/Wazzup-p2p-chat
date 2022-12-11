@@ -13,7 +13,30 @@
     <meta name="viewport" content="width=device-width">
 </head>
 <body>
-    <div id="menu" class="container">
+
+    <div id="initial" class="container" style="display: none">
+        <div class="row">
+          <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card border-0 shadow rounded-3 my-5">
+              <div class="card-body p-4 p-sm-5">
+                <div class="text-center">
+                    <img src="assets/login.png" alt="Wazzup" style="width:80%;">
+                </div>
+                <h3 class="small card-title text-center mb-4 fw-light fs-5">Connect to your friends</h5>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="nickInput" placeholder="Nickname" required>
+                        <label for="floatingInput">Enter a Nickname</label>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit" onclick="goOnline()">Go Online</button>
+                    </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div id="menu" class="container" style="display: none">
         <div class="row">
           <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card border-0 shadow rounded-3 my-5">
@@ -33,6 +56,7 @@
                     </div>
                     <div class="d-grid">
                         <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit" onclick="callUser()">Connect</button>
+                        <a href="#" class="small mt-4 text-center link" style="color: #4a3d97" onclick="changeNick()">Change Nick</a>
                     </div>
               </div>
             </div>

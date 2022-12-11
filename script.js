@@ -1,42 +1,74 @@
 const peer = new Peer();
 var currentCall;
-var nick = prompt("Enter a nickname");
+var nick;
 
 peer.on("open", function (id) {
   document.getElementById("uuid").value = id;
 });
 
+window.onload = function() {
+  if (sessionStorage.getItem("nickName")==null) {
+    console.log("Nick not found");
+    document.getElementById("initial").style.display = "block";
+  }
+  else {
+    console.log("Nick found");
+    nick = sessionStorage.getItem("nickName");
+    document.getElementById("initial").style.display = "none";
+    document.getElementById("menu").style.display = "block";
+  }
+};
+
+function goOnline(){
+  nick = document.getElementById("nickInput").value;
+  if(nick===""){}
+  else{
+    sessionStorage.setItem("nickName", nick);
+    document.getElementById("initial").style.display = "none";
+    document.getElementById("menu").style.display = "block";
+    document.getElementById("chat").style.display = "none";
+  }
+}
+
+function changeNick(){
+  sessionStorage.removeItem("nickName");
+  location.reload();
+}
+
 async function callUser() {
   var peerId = document.getElementById("peerInput").value;
-  console.log("peerId: " + peerId);
-  document.getElementById("menu").style.display = "none";
-  document.getElementById("chat").style.display = "block";
-  call = peer.connect(peerId);
-  currentCall = call;
-  call.on('open', function(data){
-    call.on('data', function(data){
-      console.log("Data content: " + data.content);
-      insertMessageToDOM(data, false);
-    });
-    form = document.querySelector('form');
-    form.addEventListener('submit', () => {
-      inputArea = document.getElementById("messageText");
-      input = document.getElementById("messageText").value;
-      call.send({
-        senderName: nick,
-        content: input,
+  if(peerId===""){}
+  else{
+    console.log("peerId: " + peerId);
+    document.getElementById("menu").style.display = "none";
+    document.getElementById("chat").style.display = "block";
+    call = peer.connect(peerId);
+    currentCall = call;
+    call.on('open', function(data){
+      call.on('data', function(data){
+        console.log("Data content: " + data.content);
+        insertMessageToDOM(data, false);
       });
-      options = {
-        content: input,
-      }
-      console.log("Options: " + options.content);
-      insertMessageToDOM(options, true);
-      inputArea.value = '';      
+      form = document.querySelector('form');
+      form.addEventListener('submit', () => {
+        inputArea = document.getElementById("messageText");
+        input = document.getElementById("messageText").value;
+        call.send({
+          senderName: nick,
+          content: input,
+        });
+        options = {
+          content: input,
+        }
+        console.log("Options: " + options.content);
+        insertMessageToDOM(options, true);
+        inputArea.value = '';      
+      });
+      call.on('close', () => {
+        endCall();
+      })
     });
-    call.on('close', () => {
-      endCall();
-    })
-  });
+  }
 }
 
 peer.on("connection", function(call) {
@@ -103,6 +135,6 @@ function endCall() {
     currentCall.close();
   } catch {}
   currentCall = undefined;
-
+  location.reload();
 }
 
